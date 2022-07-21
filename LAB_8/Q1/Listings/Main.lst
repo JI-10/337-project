@@ -1,0 +1,508 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\Main.obj
+COMPILER INVOKED BY: C:\Users\hp\OneDrive\Desktop\EE 337 Microprocessors Lab\C51\BIN\C51.EXE Main.c OPTIMIZE(8,SPEED) BR
+                    -OWSE DEBUG OBJECTEXTEND CODE PRINT(.\Listings\Main.lst) TABS(2) OBJECT(.\Objects\Main.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"        //Header file with LCD interfacing functions
+   3          #include "MorseCode.h"  //Header file for Morse Code 
+   4          
+   5          sbit LED=P0^7;
+   6          sbit P10=P1^0;
+   7          sbit P11=P1^1;
+   8          sbit P12=P1^2;
+   9          sbit P13=P1^3;
+  10          
+  11          //Main function
+  12          void main(void)
+  13          {
+  14   1        P1=0xFF;
+  15   1        msdelay(3000);
+  16   1        //Call initialization functions
+  17   1        lcd_init();
+  18   1        if(P10==0){
+  19   2          lcd_cmd(0x80);
+  20   2          msdelay(2);
+  21   2          lcd_write_char('A');
+  22   2          msdelay(2);
+  23   2          morsea();
+  24   2        }
+  25   1        else if(P11==0){
+  26   2          lcd_cmd(0x80);
+  27   2          msdelay(2);
+  28   2          lcd_write_char('B');
+  29   2          msdelay(2);
+  30   2          morseb();
+  31   2        }
+  32   1        else if(P12==0){
+  33   2          lcd_cmd(0x80);
+  34   2          msdelay(2);
+  35   2          lcd_write_char('C');
+  36   2          msdelay(2);
+  37   2          morsec();
+  38   2        }
+  39   1        else if(P13==0){
+  40   2          lcd_cmd(0x80);
+  41   2          msdelay(2);
+  42   2          lcd_write_char('D');
+  43   2          msdelay(2);
+  44   2          morsed();
+  45   2        }
+  46   1        else{
+  47   2          lcd_cmd(0x80);
+  48   2          msdelay(2);
+  49   2          lcd_write_char('E');
+  50   2          msdelay(2);
+  51   2          morsee();
+  52   2        }
+  53   1        // Read input nibble here
+  54   1          while(1);
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 2   
+
+  55   1      }
+  56            
+  57            // Insert Priority Logic
+  58            // Inside each condition, call the functions from MorseCode.h. Fill functions in MorseCode.h
+  59            
+  60          
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION lcd_init (BEGIN)
+                                           ; SOURCE LINE # 25
+                                           ; SOURCE LINE # 26
+                                           ; SOURCE LINE # 27
+0000 E4                CLR     A
+0001 F5A0              MOV     P2,A
+                                           ; SOURCE LINE # 28
+0003 C282              CLR     EN
+                                           ; SOURCE LINE # 29
+0005 C280              CLR     RS
+                                           ; SOURCE LINE # 30
+0007 C281              CLR     RW
+                                           ; SOURCE LINE # 32
+0009 7F38              MOV     R7,#038H
+000B FE                MOV     R6,A
+000C 120000      R     LCALL   _lcd_cmd
+                                           ; SOURCE LINE # 33
+000F 7F04              MOV     R7,#04H
+0011 7E00              MOV     R6,#00H
+0013 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 34
+0016 7F06              MOV     R7,#06H
+0018 7E00              MOV     R6,#00H
+001A 120000      R     LCALL   _lcd_cmd
+                                           ; SOURCE LINE # 35
+001D 7F04              MOV     R7,#04H
+001F 7E00              MOV     R6,#00H
+0021 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 36
+0024 7F0C              MOV     R7,#0CH
+0026 7E00              MOV     R6,#00H
+0028 120000      R     LCALL   _lcd_cmd
+                                           ; SOURCE LINE # 37
+002B 7F04              MOV     R7,#04H
+002D 7E00              MOV     R6,#00H
+002F 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 38
+0032 7F01              MOV     R7,#01H
+0034 7E00              MOV     R6,#00H
+0036 120000      R     LCALL   _lcd_cmd
+                                           ; SOURCE LINE # 39
+0039 7F04              MOV     R7,#04H
+003B 7E00              MOV     R6,#00H
+003D 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 40
+0040 7F80              MOV     R7,#080H
+0042 7E00              MOV     R6,#00H
+0044 020000      R     LJMP    _lcd_cmd
+             ; FUNCTION lcd_init (END)
+
+             ; FUNCTION L?0043 (BEGIN)
+0000         L?0044:
+0000 120000      R     LCALL   dashtone
+0003 7FE8              MOV     R7,#0E8H
+0005 7E03              MOV     R6,#03H
+0007 120000      R     LCALL   _msdelay
+000A         L?0045:
+000A 120000      R     LCALL   dottone
+000D         L?0046:
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 4   
+
+000D 7FE8              MOV     R7,#0E8H
+000F 7E03              MOV     R6,#03H
+             ; FUNCTION _msdelay (BEGIN)
+                                           ; SOURCE LINE # 47
+;---- Variable 'time' assigned to Register 'R6/R7' ----
+                                           ; SOURCE LINE # 48
+                                           ; SOURCE LINE # 50
+;---- Variable 'i' assigned to Register 'R4/R5' ----
+0011 E4                CLR     A
+0012 FD                MOV     R5,A
+0013 FC                MOV     R4,A
+0014         ?C0002:
+0014 C3                CLR     C
+0015 ED                MOV     A,R5
+0016 9F                SUBB    A,R7
+0017 EC                MOV     A,R4
+0018 9E                SUBB    A,R6
+0019 5015              JNC     ?C0008
+                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 52
+;---- Variable 'j' assigned to Register 'R2/R3' ----
+001B E4                CLR     A
+001C FB                MOV     R3,A
+001D FA                MOV     R2,A
+001E         ?C0005:
+001E 0B                INC     R3
+001F BB0001            CJNE    R3,#00H,?C0038
+0022 0A                INC     R2
+0023         ?C0038:
+0023 BA01F8            CJNE    R2,#01H,?C0005
+0026 BB7EF5            CJNE    R3,#07EH,?C0005
+                                           ; SOURCE LINE # 53
+0029         ?C0004:
+0029 0D                INC     R5
+002A BD0001            CJNE    R5,#00H,?C0039
+002D 0C                INC     R4
+002E         ?C0039:
+002E 80E4              SJMP    ?C0002
+                                           ; SOURCE LINE # 54
+0030         ?C0008:
+0030 22                RET     
+             ; FUNCTION _msdelay (END)
+
+             ; FUNCTION L?0047 (BEGIN)
+0000         L?0048:
+0000 7F80              MOV     R7,#080H
+0002 7E00              MOV     R6,#00H
+             ; FUNCTION _lcd_cmd (BEGIN)
+                                           ; SOURCE LINE # 61
+;---- Variable 'i' assigned to Register 'R6/R7' ----
+                                           ; SOURCE LINE # 62
+                                           ; SOURCE LINE # 63
+0004 C280              CLR     RS
+                                           ; SOURCE LINE # 64
+0006 C281              CLR     RW
+                                           ; SOURCE LINE # 65
+0008 D282              SETB    EN
+                                           ; SOURCE LINE # 66
+000A 8FA0              MOV     P2,R7
+                                           ; SOURCE LINE # 67
+000C 7F0A              MOV     R7,#0AH
+000E 7E00              MOV     R6,#00H
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 5   
+
+0010 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 68
+0013 C282              CLR     EN
+                                           ; SOURCE LINE # 69
+0015 22                RET     
+             ; FUNCTION _lcd_cmd (END)
+
+             ; FUNCTION _lcd_write_char (BEGIN)
+                                           ; SOURCE LINE # 77
+;---- Variable 'ch' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 78
+                                           ; SOURCE LINE # 79
+0000 D280              SETB    RS
+                                           ; SOURCE LINE # 80
+0002 C281              CLR     RW
+                                           ; SOURCE LINE # 81
+0004 D282              SETB    EN
+                                           ; SOURCE LINE # 82
+0006 8FA0              MOV     P2,R7
+                                           ; SOURCE LINE # 83
+0008 7F0A              MOV     R7,#0AH
+000A 7E00              MOV     R6,#00H
+000C 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 84
+000F C282              CLR     EN
+                                           ; SOURCE LINE # 85
+0011 22                RET     
+             ; FUNCTION _lcd_write_char (END)
+
+             ; FUNCTION _lcd_write_string (BEGIN)
+                                           ; SOURCE LINE # 93
+0000 8B00        R     MOV     s,R3
+0002 8A00        R     MOV     s+01H,R2
+0004 8900        R     MOV     s+02H,R1
+                                           ; SOURCE LINE # 94
+0006         ?C0011:
+                                           ; SOURCE LINE # 95
+0006 AB00        R     MOV     R3,s
+0008 AA00        R     MOV     R2,s+01H
+000A A900        R     MOV     R1,s+02H
+000C 120000      E     LCALL   ?C?CLDPTR
+000F 6013              JZ      ?C0013
+                                           ; SOURCE LINE # 96
+                                           ; SOURCE LINE # 97
+0011 0500        R     INC     s+02H
+0013 E500        R     MOV     A,s+02H
+0015 7002              JNZ     ?C0040
+0017 0500        R     INC     s+01H
+0019         ?C0040:
+0019 14                DEC     A
+001A F9                MOV     R1,A
+001B 120000      E     LCALL   ?C?CLDPTR
+001E FF                MOV     R7,A
+001F 120000      R     LCALL   _lcd_write_char
+                                           ; SOURCE LINE # 98
+0022 80E2              SJMP    ?C0011
+                                           ; SOURCE LINE # 99
+0024         ?C0013:
+0024 22                RET     
+             ; FUNCTION _lcd_write_string (END)
+
+             ; FUNCTION dashtone (BEGIN)
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 6   
+
+                                           ; SOURCE LINE # 17
+                                           ; SOURCE LINE # 18
+                                           ; SOURCE LINE # 21
+;---- Variable 'i' assigned to Register 'DPTR' ----
+0000 900000            MOV     DPTR,#00H
+0003         ?C0014:
+                                           ; SOURCE LINE # 22
+0003 B287              CPL     P0_7
+                                           ; SOURCE LINE # 23
+0005 7F02              MOV     R7,#02H
+0007 7E00              MOV     R6,#00H
+0009 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 25
+000C A3                INC     DPTR
+000D E582              MOV     A,DPL
+000F B4CCF1            CJNE    A,#0CCH,?C0014
+0012 E583              MOV     A,DPH
+0014 B402EC            CJNE    A,#02H,?C0014
+                                           ; SOURCE LINE # 26
+0017         ?C0017:
+0017 22                RET     
+             ; FUNCTION dashtone (END)
+
+             ; FUNCTION dottone (BEGIN)
+                                           ; SOURCE LINE # 27
+                                           ; SOURCE LINE # 28
+                                           ; SOURCE LINE # 31
+;---- Variable 'i' assigned to Register 'DPTR' ----
+0000 900000            MOV     DPTR,#00H
+0003         ?C0018:
+                                           ; SOURCE LINE # 32
+0003 B287              CPL     P0_7
+                                           ; SOURCE LINE # 33
+0005 7F02              MOV     R7,#02H
+0007 7E00              MOV     R6,#00H
+0009 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 34
+000C A3                INC     DPTR
+000D E582              MOV     A,DPL
+000F B45EF1            CJNE    A,#05EH,?C0018
+0012 E583              MOV     A,DPH
+0014 B401EC            CJNE    A,#01H,?C0018
+                                           ; SOURCE LINE # 35
+0017         ?C0021:
+0017 22                RET     
+             ; FUNCTION dottone (END)
+
+             ; FUNCTION morsea (BEGIN)
+                                           ; SOURCE LINE # 37
+                                           ; SOURCE LINE # 38
+                                           ; SOURCE LINE # 39
+                                           ; SOURCE LINE # 40
+0000 120000      R     LCALL   L?0045
+                                           ; SOURCE LINE # 41
+0003 020000      R     LJMP    dashtone
+             ; FUNCTION morsea (END)
+
+             ; FUNCTION morseb (BEGIN)
+                                           ; SOURCE LINE # 44
+                                           ; SOURCE LINE # 45
+                                           ; SOURCE LINE # 47
+                                           ; SOURCE LINE # 48
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 7   
+
+                                           ; SOURCE LINE # 49
+                                           ; SOURCE LINE # 50
+0000 120000      R     LCALL   L?0043
+                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 52
+0003 120000      R     LCALL   L?0045
+                                           ; SOURCE LINE # 53
+0006 020000      R     LJMP    dottone
+             ; FUNCTION morseb (END)
+
+             ; FUNCTION morsec (BEGIN)
+                                           ; SOURCE LINE # 55
+                                           ; SOURCE LINE # 56
+                                           ; SOURCE LINE # 58
+                                           ; SOURCE LINE # 59
+                                           ; SOURCE LINE # 60
+                                           ; SOURCE LINE # 61
+0000 120000      R     LCALL   L?0043
+                                           ; SOURCE LINE # 62
+0003 120000      R     LCALL   dashtone
+                                           ; SOURCE LINE # 63
+0006 120000      R     LCALL   L?0046
+                                           ; SOURCE LINE # 64
+0009 020000      R     LJMP    dottone
+             ; FUNCTION morsec (END)
+
+             ; FUNCTION morsed (BEGIN)
+                                           ; SOURCE LINE # 66
+                                           ; SOURCE LINE # 67
+                                           ; SOURCE LINE # 69
+                                           ; SOURCE LINE # 70
+                                           ; SOURCE LINE # 71
+                                           ; SOURCE LINE # 72
+0000 120000      R     LCALL   L?0044
+                                           ; SOURCE LINE # 73
+0003 020000      R     LJMP    dottone
+             ; FUNCTION morsed (END)
+
+             ; FUNCTION morsee (BEGIN)
+                                           ; SOURCE LINE # 75
+                                           ; SOURCE LINE # 76
+                                           ; SOURCE LINE # 78
+0000 020000      R     LJMP    dottone
+             ; FUNCTION morsee (END)
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 12
+                                           ; SOURCE LINE # 13
+                                           ; SOURCE LINE # 14
+0000 7590FF            MOV     P1,#0FFH
+                                           ; SOURCE LINE # 15
+0003 7FB8              MOV     R7,#0B8H
+0005 7E0B              MOV     R6,#0BH
+0007 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 17
+000A 120000      R     LCALL   lcd_init
+                                           ; SOURCE LINE # 18
+000D 20901C            JB      P10,?C0027
+                                           ; SOURCE LINE # 19
+0010 120000      R     LCALL   L?0047
+                                           ; SOURCE LINE # 20
+0013 7F02              MOV     R7,#02H
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 8   
+
+0015 7E00              MOV     R6,#00H
+0017 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 21
+001A 7F41              MOV     R7,#041H
+001C 120000      R     LCALL   _lcd_write_char
+                                           ; SOURCE LINE # 22
+001F 7F02              MOV     R7,#02H
+0021 7E00              MOV     R6,#00H
+0023 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 23
+0026 120000      R     LCALL   morsea
+                                           ; SOURCE LINE # 24
+0029 020000      R     LJMP    ?C0035
+002C         ?C0027:
+                                           ; SOURCE LINE # 25
+002C 20911B            JB      P11,?C0029
+                                           ; SOURCE LINE # 26
+002F 120000      R     LCALL   L?0047
+                                           ; SOURCE LINE # 27
+0032 7F02              MOV     R7,#02H
+0034 7E00              MOV     R6,#00H
+0036 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 28
+0039 7F42              MOV     R7,#042H
+003B 120000      R     LCALL   _lcd_write_char
+                                           ; SOURCE LINE # 29
+003E 7F02              MOV     R7,#02H
+0040 7E00              MOV     R6,#00H
+0042 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 30
+0045 120000      R     LCALL   morseb
+                                           ; SOURCE LINE # 31
+0048 8059              SJMP    ?C0035
+004A         ?C0029:
+                                           ; SOURCE LINE # 32
+004A 20921B            JB      P12,?C0031
+                                           ; SOURCE LINE # 33
+004D 120000      R     LCALL   L?0048
+                                           ; SOURCE LINE # 34
+0050 7F02              MOV     R7,#02H
+0052 7E00              MOV     R6,#00H
+0054 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 35
+0057 7F43              MOV     R7,#043H
+0059 120000      R     LCALL   _lcd_write_char
+                                           ; SOURCE LINE # 36
+005C 7F02              MOV     R7,#02H
+005E 7E00              MOV     R6,#00H
+0060 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 37
+0063 120000      R     LCALL   morsec
+                                           ; SOURCE LINE # 38
+0066 803B              SJMP    ?C0035
+0068         ?C0031:
+                                           ; SOURCE LINE # 39
+0068 7F80              MOV     R7,#080H
+006A 7E00              MOV     R6,#00H
+006C 20931B            JB      P13,?C0033
+                                           ; SOURCE LINE # 40
+006F 120000      R     LCALL   _lcd_cmd
+                                           ; SOURCE LINE # 41
+0072 7F02              MOV     R7,#02H
+C51 COMPILER V9.60.0.0   MAIN                                                              03/19/2022 01:24:35 PAGE 9   
+
+0074 7E00              MOV     R6,#00H
+0076 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 42
+0079 7F44              MOV     R7,#044H
+007B 120000      R     LCALL   _lcd_write_char
+                                           ; SOURCE LINE # 43
+007E 7F02              MOV     R7,#02H
+0080 7E00              MOV     R6,#00H
+0082 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 44
+0085 120000      R     LCALL   morsed
+                                           ; SOURCE LINE # 45
+0088 8019              SJMP    ?C0035
+008A         ?C0033:
+                                           ; SOURCE LINE # 46
+                                           ; SOURCE LINE # 47
+008A 120000      R     LCALL   _lcd_cmd
+                                           ; SOURCE LINE # 48
+008D 7F02              MOV     R7,#02H
+008F 7E00              MOV     R6,#00H
+0091 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 49
+0094 7F45              MOV     R7,#045H
+0096 120000      R     LCALL   _lcd_write_char
+                                           ; SOURCE LINE # 50
+0099 7F02              MOV     R7,#02H
+009B 7E00              MOV     R6,#00H
+009D 120000      R     LCALL   _msdelay
+                                           ; SOURCE LINE # 51
+00A0 120000      R     LCALL   morsee
+                                           ; SOURCE LINE # 52
+00A3         ?C0035:
+                                           ; SOURCE LINE # 54
+00A3 80FE              SJMP    ?C0035
+             ; FUNCTION main (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    446    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
